@@ -4,15 +4,35 @@
   <meta charset="UTF-8">
   <title>Chaos Visual 3D</title>
   <style>
-    /* 画面いっぱいに表示 & スクロール非表示 */
     body { margin: 0; overflow: hidden; }
     canvas { display: block; }
   </style>
 </head>
 <body>
 
-  <!-- main.js をモジュールとして読み込む -->
-  <script type="module" src="./main.js"></script>
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/controls/OrbitControls.js';
 
+    // --- SCENE & CAMERA ---
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000010);
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 2000);
+    camera.position.set(0, 0, 150);
+
+    // --- RENDERER ---
+    const renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // --- CONTROLS ---
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    // --- ここから先は main.js の中身をそのまま貼る ---
+    // ... （テクスチャ読み込みやフラクタル生成、アニメーションループ）
+    
+  </script>
 </body>
 </html>
