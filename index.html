@@ -1,63 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
-  <title>Chaos Visual - Big Data</title>
+<meta charset="UTF-8">
+<title>Chaos Visual 3D</title>
+<style>
+  body { margin: 0; overflow: hidden; }
+  canvas { display: block; }
+</style>
 </head>
 <body>
-<script>
-let points = [];
-const NUM_POINTS = 150;
-
-function setup() {
-  createCanvas(window.innerWidth, window.innerHeight);
-  for (let i = 0; i < NUM_POINTS; i++) {
-    points.push({
-      x: random(width),
-      y: random(height),
-      offsetX: random(1000),
-      offsetY: random(1000),
-      size: random(2,5)
-    });
-  }
-  noStroke();
-}
-
-function draw() {
-  background(5,5,15, 25); // 少し残像を残す
-  strokeWeight(1);
-  
-  // Update and draw points
-  for (let p of points) {
-    // Perlinノイズで滑らかに動かす
-    p.x += map(noise(p.offsetX),0,1,-1,1);
-    p.y += map(noise(p.offsetY),0,1,-1,1);
-    p.offsetX += 0.005;
-    p.offsetY += 0.005;
-
-    // 点を描画
-    fill(0,255,255,150);
-    ellipse(p.x, p.y, p.size);
-  }
-  
-  // 線でネットワーク感
-  for (let i = 0; i < points.length; i++) {
-    for (let j = i+1; j < points.length; j++) {
-      const d = dist(points[i].x, points[i].y, points[j].x, points[j].y);
-      if (d < 120) {
-        const alpha = map(d, 0, 120, 200, 0);
-        stroke(`rgba(0,255,255,${alpha/255})`);
-        line(points[i].x, points[i].y, points[j].x, points[j].y);
-      }
-    }
-  }
-}
-
-// ウィンドウリサイズ対応
-function windowResized() {
-  resizeCanvas(window.innerWidth, window.innerHeight);
-}
-</script>
+<script type="module" src="./main.js"></script>
 </body>
 </html>
