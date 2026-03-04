@@ -1,0 +1,13 @@
+/* body と html の余白を消して全画面表示 */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* canvas を block にして余白を消す */
+canvas {
+  display: block;
+}
